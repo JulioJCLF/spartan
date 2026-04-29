@@ -371,6 +371,175 @@
     .pack-img{aspect-ratio:4/5}
   }
 
+  /* ─── Tech stats (Apple-style) ─── */
+  .techstats{
+    background:var(--bg-1);
+    padding:160px 32px 140px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .techstats-inner{max-width:1280px;margin:0 auto}
+  .techstats-head{
+    text-align:center;
+    max-width:820px;margin:0 auto 96px;
+  }
+  .techstats-head h2{margin-bottom:32px}
+  .techstats-head p{
+    font-size:17px;line-height:1.75;color:var(--fg-dim);
+    text-align:left;
+    max-width:720px;margin:0 auto;
+  }
+  .techstats-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .ts-card{
+    padding:80px 48px;
+    border-right:1px solid var(--line);
+    text-align:left;
+    display:flex;flex-direction:column;gap:24px;
+    transition:background .25s;
+  }
+  .ts-card:last-child{border-right:0}
+  .ts-card:hover{background:rgba(142,10,8,.04)}
+  .ts-label{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.3em;text-transform:uppercase;color:var(--coyote);
+  }
+  .ts-head{
+    font-family:'Oswald',sans-serif;font-weight:500;
+    font-size:clamp(36px,3.6vw,52px);
+    line-height:.95;letter-spacing:-.015em;
+    text-transform:uppercase;
+    color:var(--fg);margin:0;
+  }
+  .ts-copy{
+    font-size:16px;line-height:1.6;color:var(--fg-dim);
+    max-width:340px;margin:0;
+  }
+  .techstats-foot{
+    margin-top:88px;text-align:center;
+  }
+
+  /* Specs strip */
+  .ts-specs{
+    margin-top:64px;
+    display:grid;grid-template-columns:repeat(3,1fr);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .ts-spec{
+    padding:24px 28px;
+    display:flex;flex-direction:column;gap:8px;
+    border-right:1px solid var(--line);
+  }
+  .ts-spec:last-child{border-right:0}
+  .ts-spec-k{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.28em;text-transform:uppercase;color:var(--coyote);
+  }
+  .ts-spec-v{
+    font-family:'JetBrains Mono',monospace;font-size:12px;
+    line-height:1.55;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--fg);
+  }
+  .ts-quote{
+    font-family:'Oswald',sans-serif;font-weight:300;
+    font-size:clamp(24px,3.2vw,36px);
+    line-height:1.25;letter-spacing:-.005em;
+    color:var(--fg);max-width:780px;margin:0 auto;
+    font-style:italic;
+  }
+  .ts-quote span{color:var(--coyote);font-style:normal}
+  .ts-quote small{
+    display:block;margin-top:20px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--fg-mute);letter-spacing:.25em;text-transform:uppercase;
+    font-style:normal;font-weight:400;
+  }
+
+  @media (max-width: 880px){
+    .techstats{padding:96px 24px 80px}
+    .techstats-head{margin-bottom:64px}
+    .techstats-grid{grid-template-columns:1fr}
+    .ts-card{
+      padding:56px 32px;
+      border-right:0;border-bottom:1px solid var(--line);
+    }
+    .ts-card:last-child{border-bottom:0}
+    .ts-specs{grid-template-columns:1fr;margin-top:48px}
+    .ts-spec{
+      border-right:0;border-bottom:1px solid var(--line);
+      padding:20px 24px;
+    }
+    .ts-spec:last-child{border-bottom:0}
+    .techstats-foot{margin-top:56px}
+  }
+
+  /* ─── Sealed factory ─── */
+  .sealed{
+    position:relative;
+    padding:140px 32px;
+    background:var(--bg-0);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .sealed::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 80px,
+        rgba(142,10,8,.04) 80px,
+        rgba(142,10,8,.04) 82px
+      );
+    pointer-events:none;
+  }
+  .sealed-inner{
+    position:relative;z-index:1;
+    max-width:820px;margin:0 auto;
+    text-align:center;
+  }
+  .sealed-inner h2{margin:18px 0 32px}
+  .sealed-inner > p{
+    font-size:17px;line-height:1.7;color:var(--fg-dim);
+    max-width:680px;margin:0 auto;
+  }
+  .sealed-inner > p b{color:var(--fg);font-weight:600}
+
+  .sealed-row{
+    margin-top:72px;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .sealed-cell{
+    padding:32px 24px;
+    display:flex;flex-direction:column;gap:10px;
+    border-right:1px solid var(--line);
+  }
+  .sealed-cell:last-child{border-right:0}
+  .sealed-k{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.25em;text-transform:uppercase;color:var(--coyote);
+  }
+  .sealed-v{
+    font-family:'Oswald',sans-serif;font-weight:500;font-size:22px;
+    text-transform:uppercase;letter-spacing:.005em;color:var(--fg);
+  }
+
+  @media (max-width: 880px){
+    .sealed{padding:96px 24px}
+    .sealed-row{grid-template-columns:1fr;margin-top:56px}
+    .sealed-cell{
+      border-right:0;border-bottom:1px solid var(--line);
+      padding:24px;
+    }
+    .sealed-cell:last-child{border-bottom:0}
+  }
+
   /* ─── Manifesto ─── */
   .manifesto{
     position:relative;
@@ -802,7 +971,7 @@
       <p class="hero-sub">
         A Spartan está de volta — agora com foco total no que sempre fizemos
         de melhor: <b style="color:var(--fg)">BBs de altíssima qualidade.</b> Esfericidade controlada,
-        peso uniforme e zero microbolhas. Nada mais. Nada menos.
+        peso uniforme e zero microbolhas.
       </p>
       <div class="hero-actions">
         <a class="btn-primary" href="#lista">
@@ -821,44 +990,99 @@
   <div class="hero-right">
     <img src="assets/hero-operator.jpg" alt="BBs Spartan na garrafa de munição">
     <div class="overlay-marker mono om-tl">LOTE BR-217<br>0.25g / MATCH</div>
-    <div class="overlay-marker mono om-tr">QC PASS<br>SCAN 04.26</div>
-    <div class="overlay-marker mono om-bl">ESF. 99.7%<br>POLIMERO PE</div>
+    <div class="overlay-marker mono om-tr">MADE IN<br>TAIWAN</div>
+    <div class="overlay-marker mono om-bl">POLIMERO PE<br>VIRGEM</div>
     <div class="overlay-marker mono om-br">UN. 1.000<br>FRASCO</div>
     <div class="crosshair"></div>
   </div>
 </section>
 
-<!-- TECHNICAL SHEET -->
-<div class="specsheet" id="arsenal">
-  <div class="specsheet-left">
-    <div class="eyebrow">Ficha Técnica</div>
-    <h2>Obsessão<br>pelo <em>detalhe.</em></h2>
-    <p>
-      Cada lote passa por inspeção óptica, pesagem por amostragem e teste
-      de disparo antes da liberação. Se um único frasco do lote falha,
-      o lote inteiro volta para a triagem.
-    </p>
-    <div class="quote">
-      "Uma BB ruim arruina o melhor fuzil do mundo."
-      <small>— Filosofia Spartan</small>
-    </div>
-  </div>
-  <div class="specsheet-right">
-    <div class="spec-row">
-      <span class="k">Material</span>
-      <span class="v">Polietileno PE Premium<small>Polímero virgem, não reciclado.</small></span>
-    </div>
-    <div class="spec-row">
-      <span class="k">Diâmetro</span>
-      <span class="v">5.95mm ± 0.01<small>Calibrado para hop-ups de precisão.</small></span>
-    </div>
-    <div class="spec-row">
-      <span class="k">Esfericidade</span>
-      <span class="v">99.7%<small>Medido em scanner óptico após o terceiro polimento.</small></span>
+<!-- TECHNICAL — Apple-style stats -->
+<section class="techstats" id="arsenal">
+  <div class="techstats-inner">
+    <div class="techstats-head">
+      <div class="eyebrow">Obsessão pelo detalhe</div>
+      <h2>O detalhe que<br>você <em>sente</em> no jogo.</h2>
+      <p>
+        Não produzimos apenas esferas plásticas — perseguimos consistência absoluta.
+        Cada lote nasce de um processo extremo: filtragem industrial rigorosa, materiais
+        de ponta e um dos melhores fabricantes do mundo operando sob o briefing de
+        fabricação mais exigente que já concebemos. Nada é deixado ao acaso. Cada esfera
+        carrega uma obsessão silenciosa por perfeição, construída para quem exige
+        repetição, previsibilidade e confiança total em cada disparo.
+      </p>
     </div>
 
+    <div class="techstats-grid">
+      <article class="ts-card">
+        <div class="ts-label">Lacrado de Fábrica</div>
+        <h3 class="ts-head">Como saiu<br>da fábrica.</h3>
+        <p class="ts-copy">Cada frasco é envasado e fechado diretamente na linha de produção. Você abre exatamente como ele saiu — sem manipulação, sem reembalagem.</p>
+      </article>
+
+      <article class="ts-card">
+        <div class="ts-label">Tolerância de peso</div>
+        <h3 class="ts-head">Mesmo peso.<br>Mesmo destino.</h3>
+        <p class="ts-copy">Cada BB tem o mesmo peso da anterior. Trajetória previsível, agrupamento consistente — do primeiro ao último disparo do frasco.</p>
+      </article>
+
+      <article class="ts-card">
+        <div class="ts-label">Diâmetro calibrado</div>
+        <h3 class="ts-head">Encaixa<br>perfeito.</h3>
+        <p class="ts-copy">Calibragem precisa para hop-ups de competição. Sem folga, sem perda de pressão, sem início de jogo desperdiçado.</p>
+      </article>
+    </div>
+
+    <div class="ts-specs">
+      <div class="ts-spec">
+        <span class="ts-spec-k">Material</span>
+        <span class="ts-spec-v">Polímero plástico de altíssima qualidade</span>
+      </div>
+      <div class="ts-spec">
+        <span class="ts-spec-k">Compatibilidade</span>
+        <span class="ts-spec-v">Calibradas para hop-ups e canos de precisão de diversas marcas</span>
+      </div>
+      <div class="ts-spec">
+        <span class="ts-spec-k">Esfericidade</span>
+        <span class="ts-spec-v">Absoluta — sem deformação durante o transporte</span>
+      </div>
+    </div>
+
+    <div class="techstats-foot">
+      <p class="ts-quote">
+        <span>"</span>Precisão não admite exceções.<span>"</span>
+        <small>— Filosofia Spartan</small>
+      </p>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- SEALED -->
+<section class="sealed">
+  <div class="sealed-inner">
+    <div class="eyebrow">Lacre de Fábrica</div>
+    <h2>Sai da fábrica.<br>Chega <em>fechado</em>.</h2>
+    <p>
+      Cada frasco Spartan é envasado e fechado <b>na própria linha de produção em Taiwan</b>,
+      com identificação de lote para rastreio. O produto chega no jogador exatamente como saiu da fábrica
+      — sem manipulação intermediária, sem reembalagem, sem etapas no meio do caminho.
+    </p>
+    <div class="sealed-row">
+      <div class="sealed-cell">
+        <span class="sealed-k">Origem</span>
+        <span class="sealed-v">Taiwan</span>
+      </div>
+      <div class="sealed-cell">
+        <span class="sealed-k">Envase</span>
+        <span class="sealed-v">Direto da fábrica</span>
+      </div>
+      <div class="sealed-cell">
+        <span class="sealed-k">Rastreio</span>
+        <span class="sealed-v">Por lote</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- MANIFESTO -->
 <section class="manifesto" id="manifesto">
