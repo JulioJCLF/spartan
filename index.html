@@ -1,0 +1,1175 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SPARTAN AIRSOFT — BBs de Alta Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#0a0a0a"/>
+    <g transform="translate(50,50)" fill="none" stroke="#8e0a08" stroke-width="2">
+      <circle r="22"/>
+      <circle r="14"/>
+      <circle r="6" fill="#8e0a08" stroke="none"/>
+    </g>
+    <text x="50" y="86" text-anchor="middle" font-family="monospace" font-size="6" fill="#8e0a08" letter-spacing="1">SPARTAN</text>
+  </svg>
+</template>
+<style>
+  :root{
+    --bg:        #0a0a0a;
+    --bg-1:      #111110;
+    --bg-2:      #1a1916;
+    --line:      #2a2825;
+    --line-2:    #3a3733;
+    --fg:        #e8e6e1;
+    --fg-dim:    #8b867d;
+    --fg-mute:   #5a564f;
+    --coyote:    #8e0a08;
+    --coyote-dk: #5a0605;
+    --alert:     #8e0a08;
+    --danger:    #c44a2e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:0;background:none;color:inherit}
+  input,select,textarea{font-family:inherit;color:inherit}
+
+  .mono{font-family:'JetBrains Mono',monospace;letter-spacing:.02em}
+  .display{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:-.01em;line-height:.95;text-transform:uppercase}
+
+  /* ─── Top tactical bar ─── */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--fg-dim);
+  }
+  .topbar-inner{
+    max-width:1400px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:10px 32px;
+  }
+  .topbar .left{display:flex;gap:24px;align-items:center}
+  .topbar .dot{width:6px;height:6px;border-radius:50%;background:var(--alert);box-shadow:0 0 8px var(--alert);display:inline-block;margin-right:8px;vertical-align:middle;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .topbar .right{display:flex;gap:18px}
+
+  /* ─── Nav ─── */
+  nav.main{
+    position:sticky;top:33px;z-index:40;
+    background:rgba(10,10,10,.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1400px;margin:0 auto;
+    padding:18px 32px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo img.logo-img{height:48px;width:auto;display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+  footer .logo img.logo-img{height:64px}
+
+  .nav-links{display:flex;gap:32px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;text-transform:uppercase}
+  .nav-links a{color:var(--fg-dim);transition:color .2s}
+  .nav-links a:hover{color:var(--fg)}
+
+  /* ─── Hero ─── */
+  .hero{
+    position:relative;min-height:780px;
+    display:grid;grid-template-columns:1.15fr .85fr;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero-left{
+    padding:80px 56px 60px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    position:relative;z-index:2;
+  }
+  .hero-meta{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-dim);
+    display:flex;gap:24px;margin-bottom:48px;
+    border-top:1px solid var(--line);padding-top:18px;
+    flex-wrap:wrap;
+  }
+  .hero-meta b{color:var(--alert);font-weight:500}
+  h1.hero-title{
+    font-family:'Oswald',sans-serif;font-weight:600;
+    font-size:clamp(56px, 8vw, 124px);
+    line-height:.88;letter-spacing:-.015em;
+    text-transform:uppercase;
+    color:var(--fg);
+  }
+  h1.hero-title .accent{color:var(--coyote);font-style:italic;font-weight:500}
+  h1.hero-title .stroke{
+    -webkit-text-stroke:1.5px var(--fg);
+    color:transparent;
+  }
+  .hero-sub{
+    margin-top:32px;max-width:520px;
+    font-size:16px;color:var(--fg-dim);line-height:1.65;
+  }
+  .hero-actions{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
+  .btn-primary{
+    font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.18em;
+    text-transform:uppercase;font-size:14px;
+    padding:18px 32px;background:var(--alert);color:#0a0a0a;
+    clip-path:polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+    transition:filter .2s;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .btn-primary:hover{filter:brightness(1.1)}
+  .btn-secondary{
+    font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.18em;
+    text-transform:uppercase;font-size:14px;
+    padding:18px 32px;
+    border:1px solid var(--line-2);color:var(--fg);
+    transition:border-color .2s, background .2s;
+  }
+  .btn-secondary:hover{border-color:var(--coyote);background:rgba(142,10,8,.08)}
+
+  .hero-stats{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border-top:1px solid var(--line);
+    margin-top:64px;
+  }
+  .hero-stats .stat{
+    padding:24px 16px 0 0;
+    border-right:1px solid var(--line);
+  }
+  .hero-stats .stat:last-child{border-right:0}
+  .hero-stats .stat .num{font-family:'Oswald',sans-serif;font-weight:600;font-size:34px;color:var(--fg);line-height:1}
+  .hero-stats .stat .num em{color:var(--coyote);font-style:normal}
+  .hero-stats .stat .lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-mute);text-transform:uppercase;letter-spacing:.15em;margin-top:8px}
+
+  .hero-right{
+    position:relative;
+    background:#000;
+    overflow:hidden;
+  }
+  .hero-right img{
+    width:100%;height:100%;object-fit:cover;
+    filter:contrast(1.05) saturate(.85);
+  }
+  .hero-right::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg, var(--bg) 0%, transparent 30%, transparent 70%, rgba(10,10,10,.5) 100%);
+    z-index:1;pointer-events:none;
+  }
+  .overlay-marker{
+    position:absolute;font-family:'JetBrains Mono',monospace;
+    font-size:10px;color:var(--alert);letter-spacing:.1em;
+    z-index:2;
+    text-shadow:0 1px 4px rgba(0,0,0,.9);
+  }
+  .om-tl{top:32px;left:32px}
+  .om-tr{top:32px;right:32px;text-align:right}
+  .om-bl{bottom:32px;left:32px}
+  .om-br{bottom:32px;right:32px;text-align:right}
+  .overlay-marker::before{
+    content:"";display:block;width:18px;height:18px;
+    border:1px solid var(--alert);
+    margin-bottom:6px;
+  }
+  .om-tr::before, .om-br::before{margin-left:auto}
+
+  .crosshair{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:120px;height:120px;z-index:2;pointer-events:none;
+    opacity:.5;
+  }
+  .crosshair::before, .crosshair::after{
+    content:"";position:absolute;background:var(--alert);
+  }
+  .crosshair::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-.5px)}
+  .crosshair::after{top:50%;left:0;right:0;height:1px;transform:translateY(-.5px)}
+
+  /* ─── Section primitives ─── */
+  section{padding:120px 32px;border-bottom:1px solid var(--line)}
+  .container{max-width:1400px;margin:0 auto}
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--coyote);
+    letter-spacing:.3em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:10px;
+    margin-bottom:24px;
+  }
+  .eyebrow::before{content:"";width:32px;height:1px;background:var(--coyote)}
+  h2{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(40px,5vw,72px);line-height:.95;letter-spacing:-.01em;text-transform:uppercase;max-width:900px}
+  h2 em{color:var(--coyote);font-style:italic;font-weight:500}
+
+  /* ─── Quality strip ─── */
+  .quality{
+    background:var(--bg-1);
+    padding:64px 32px;border-bottom:1px solid var(--line);
+  }
+  .quality-inner{
+    max-width:1400px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  }
+  .quality .item{
+    padding:0 32px;
+    border-left:1px solid var(--line);
+  }
+  .quality .item:first-child{border-left:0;padding-left:0}
+  .quality .item .ico{
+    width:32px;height:32px;border:1px solid var(--coyote);
+    display:grid;place-items:center;color:var(--coyote);
+    font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;
+    margin-bottom:18px;
+  }
+  .quality .item h4{font-family:'Oswald',sans-serif;font-weight:500;font-size:20px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+  .quality .item p{font-size:13px;color:var(--fg-dim);line-height:1.6}
+
+  /* ─── Arsenal grid ─── */
+  .arsenal-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:64px;gap:40px;flex-wrap:wrap}
+  .arsenal-head p{max-width:380px;color:var(--fg-dim);font-size:15px}
+  .arsenal-grid{
+    display:grid;grid-template-columns:repeat(12,1fr);gap:24px;
+  }
+  .card{
+    position:relative;
+    background:var(--bg-1);
+    border:1px solid var(--line);
+    overflow:hidden;
+    transition:border-color .25s, transform .25s;
+  }
+  .card:hover{border-color:var(--coyote)}
+  .card .img-wrap{
+    position:relative;aspect-ratio:1/1;background:#000;overflow:hidden;
+  }
+  .card .img-wrap img{width:100%;height:100%;object-fit:cover;filter:contrast(1.05) saturate(.9);transition:transform .6s ease}
+  .card:hover .img-wrap img{transform:scale(1.04)}
+  .card .img-wrap::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 50%, rgba(10,10,10,.85) 100%);
+  }
+  .card .body{padding:24px}
+  .card .sku{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--coyote);letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+  .card h3{font-family:'Oswald',sans-serif;font-weight:600;font-size:24px;text-transform:uppercase;letter-spacing:.02em;margin-bottom:8px}
+  .card .desc{font-size:13px;color:var(--fg-dim);line-height:1.6;margin-bottom:18px}
+  .card .specs{display:flex;gap:18px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-mute);text-transform:uppercase;letter-spacing:.1em;border-top:1px solid var(--line);padding-top:16px}
+  .card .specs b{display:block;color:var(--fg);font-weight:500;font-size:14px;font-family:'Oswald',sans-serif;letter-spacing:.05em;margin-top:4px}
+
+  .card.sz-6{grid-column:span 6}
+  .card.sz-4{grid-column:span 4}
+  .card.sz-3{grid-column:span 3}
+  .card.sz-8{grid-column:span 8}
+  .card.sz-12{grid-column:span 12}
+
+  .card.feature{display:grid;grid-template-columns:1.1fr 1fr;align-items:stretch}
+  .card.feature .img-wrap{aspect-ratio:auto;height:100%;min-height:460px}
+  .card.feature .body{padding:48px;display:flex;flex-direction:column;justify-content:space-between}
+  .card.feature h3{font-size:42px;margin-bottom:16px;line-height:1}
+  .card.feature .desc{font-size:15px;line-height:1.7;margin-bottom:28px}
+  .card.feature .specs{gap:32px}
+
+  /* weight chips */
+  .weights{
+    display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;
+  }
+  .weights .chip{
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    padding:6px 12px;border:1px solid var(--line-2);
+    color:var(--fg);letter-spacing:.05em;
+  }
+  .weights .chip.match{border-color:var(--coyote);color:var(--coyote)}
+
+  /* ─── Packaging showcase ─── */
+  .packs{padding:140px 32px;border-bottom:1px solid var(--line);background:var(--bg-0)}
+  .packs-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  }
+  .pack{
+    border:1px solid var(--line);
+    background:var(--bg-1);
+    display:flex;flex-direction:column;
+    overflow:hidden;
+    transition:border-color .25s, transform .25s;
+    position:relative;
+  }
+  .pack:hover{border-color:var(--coyote);transform:translateY(-4px)}
+  .pack-img{
+    position:relative;
+    aspect-ratio:3/4;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .pack-img img{
+    width:100%;height:100%;object-fit:cover;
+    transition:transform .6s ease;
+  }
+  .pack:hover .pack-img img{transform:scale(1.04)}
+  .pack-tag{
+    position:absolute;top:16px;left:16px;
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.2em;text-transform:uppercase;
+    padding:6px 10px;
+    background:rgba(0,0,0,.7);
+    border:1px solid rgba(255,255,255,.18);
+    color:var(--fg);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+  }
+
+  /* per-variant accent backgrounds (subtle) */
+  .pack--white .pack-img{background:radial-gradient(ellipse at center, #1a1413 0%, #0a0807 70%)}
+  .pack--white .pack-tag{border-color:rgba(220,40,30,.5);color:#ff5b50}
+  .pack--purple .pack-img{background:radial-gradient(ellipse at center, #1a1226 0%, #060309 70%)}
+  .pack--purple .pack-tag{border-color:rgba(150,90,220,.5);color:#c79bff}
+  .pack--night .pack-img{background:radial-gradient(ellipse at center, #0d1a08 0%, #050a03 70%)}
+  .pack--night .pack-tag{border-color:rgba(168,220,80,.5);color:#c8ee6e}
+
+  .pack-body{
+    padding:28px;
+    border-top:1px solid var(--line);
+    display:flex;flex-direction:column;gap:18px;flex:1;
+  }
+  .pack-row{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:16px;
+  }
+  .pack-weight{
+    font-family:'Oswald',sans-serif;font-weight:600;
+    font-size:64px;line-height:.85;letter-spacing:-.02em;
+    color:var(--fg);
+  }
+  .pack-weight span{font-size:28px;color:var(--coyote);font-weight:500;letter-spacing:0}
+  .pack-meta{text-align:right;display:flex;flex-direction:column;gap:6px}
+  .pack-meta small{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    color:var(--fg-mute);letter-spacing:.18em;text-transform:uppercase;
+  }
+  .pack-meta b{
+    font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;
+    text-transform:uppercase;letter-spacing:.08em;color:var(--fg);
+  }
+  .pack-desc{
+    font-size:14px;line-height:1.6;color:var(--fg-dim);
+    margin:0;
+  }
+  .pack-specs{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-top:auto;padding-top:16px;border-top:1px solid var(--line);
+  }
+  .pack-specs span{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.15em;text-transform:uppercase;
+    color:var(--fg-mute);
+    padding:5px 10px;border:1px solid var(--line);
+  }
+
+  @media (max-width: 980px){
+    .packs-grid{grid-template-columns:1fr;gap:16px}
+    .packs{padding:96px 24px}
+    .pack-img{aspect-ratio:4/5}
+  }
+
+  /* ─── Manifesto ─── */
+  .manifesto{
+    position:relative;
+    padding:160px 32px 140px;
+    background:#070707;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .manifesto::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(142,10,8,.18), transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(142,10,8,.10), transparent 50%);
+    pointer-events:none;
+  }
+  .manifesto::after{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:120px 120px;
+    opacity:.18;
+    pointer-events:none;
+    mask-image:radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  }
+  .manifesto-inner{
+    position:relative;z-index:1;
+    max-width:980px;margin:0 auto;
+  }
+  .manifesto-eyebrow{
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:14px 0;margin-bottom:64px;
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--fg-dim);
+  }
+  .manifesto-mark{color:var(--coyote)}
+
+  .manifesto-lead{
+    font-family:'Oswald',sans-serif;font-weight:600;
+    font-size:clamp(48px,7vw,104px);
+    line-height:.92;letter-spacing:-.015em;text-transform:uppercase;
+    margin-bottom:88px;
+    max-width:none;
+  }
+  .manifesto-lead em{color:var(--coyote);font-style:italic;font-weight:500}
+  .manifesto-lead .stroke-text{
+    -webkit-text-stroke:1.5px var(--fg);
+    color:transparent;
+    display:inline-block;
+    font-style:italic;
+  }
+
+  .manifesto-body{
+    font-family:'Inter',sans-serif;
+    color:var(--fg);
+    max-width:760px;
+  }
+  .m-block{font-size:18px;line-height:1.7;color:var(--fg);margin-bottom:48px}
+  .m-block b{color:var(--fg);font-weight:600}
+
+  .m-pair{
+    margin:0 0 56px;
+    border-left:2px solid var(--coyote);
+    padding-left:32px;
+  }
+  .m-line.big{
+    font-family:'Oswald',sans-serif;font-weight:500;
+    font-size:36px;line-height:1.1;text-transform:uppercase;letter-spacing:-.005em;
+  }
+  .m-line.big.accent{color:var(--coyote);font-style:italic}
+
+  .m-creed{
+    list-style:none;margin:0 0 64px;
+    border-top:1px solid var(--line);
+  }
+  .m-creed li{
+    padding:22px 0;border-bottom:1px solid var(--line);
+    font-family:'Oswald',sans-serif;font-weight:500;
+    font-size:28px;text-transform:uppercase;letter-spacing:.01em;
+    line-height:1.15;
+  }
+  .m-creed li span{
+    display:block;font-family:'JetBrains Mono',monospace;
+    font-size:10px;color:var(--fg-mute);letter-spacing:.25em;
+    text-transform:uppercase;font-weight:400;margin-bottom:6px;
+  }
+
+  .m-statement{
+    font-family:'Oswald',sans-serif;font-weight:500;
+    font-size:32px;line-height:1.15;text-transform:uppercase;letter-spacing:-.005em;
+    margin:0 0 72px;color:var(--fg);
+  }
+  .m-statement b{font-weight:600;color:var(--coyote);font-style:italic}
+
+  .m-vs{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    margin:0 0 80px;
+    border:1px solid var(--line);
+  }
+  .m-vs > div{
+    padding:24px 28px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .m-vs > div:nth-child(2n){border-right:0}
+  .m-vs > div:nth-last-child(-n+2){border-bottom:0}
+  .m-vs-k{
+    display:block;
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--fg-mute);letter-spacing:.18em;text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .m-vs-v{
+    font-family:'Oswald',sans-serif;font-weight:500;font-size:22px;
+    text-transform:uppercase;letter-spacing:.01em;line-height:1.2;display:block;
+  }
+  .m-vs-v.accent{color:var(--coyote)}
+
+  .m-shift{
+    font-family:'Oswald',sans-serif;font-weight:600;
+    font-size:clamp(40px,5vw,68px);line-height:1;text-transform:uppercase;
+    letter-spacing:-.01em;
+    color:var(--coyote);
+    margin:0 0 64px;
+    text-align:center;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:48px 0;
+  }
+
+  .m-no{
+    list-style:none;display:flex;gap:32px;flex-wrap:wrap;
+    margin:0 0 56px;
+  }
+  .m-no li{
+    font-family:'Oswald',sans-serif;font-weight:500;font-size:20px;
+    text-transform:uppercase;letter-spacing:.05em;
+    color:var(--fg);
+    padding:10px 18px;
+    border:1px solid var(--coyote);
+    position:relative;
+  }
+
+  .m-callout{
+    font-family:'Oswald',sans-serif;font-weight:500;
+    font-size:30px;line-height:1.2;text-transform:uppercase;
+    letter-spacing:.005em;
+    margin:64px 0 56px;
+    color:var(--fg);
+    border-left:3px solid var(--coyote);
+    padding:8px 0 8px 28px;
+  }
+  .m-callout i{font-style:italic;color:var(--fg-dim);font-weight:400}
+
+  .m-but{
+    font-family:'JetBrains Mono',monospace;font-size:13px;
+    color:var(--fg-dim);text-transform:uppercase;letter-spacing:.25em;
+    margin:0 0 24px;
+  }
+  .m-want{
+    list-style:none;display:flex;flex-direction:column;gap:0;
+    margin:0 0 80px;
+    border-top:1px solid var(--line);
+  }
+  .m-want li{
+    display:grid;grid-template-columns:64px 1fr;gap:24px;align-items:center;
+    padding:24px 0;border-bottom:1px solid var(--line);
+    font-family:'Oswald',sans-serif;font-weight:500;font-size:24px;
+    text-transform:uppercase;letter-spacing:.01em;
+  }
+  .m-want li .num{
+    font-family:'JetBrains Mono',monospace;font-size:14px;
+    color:var(--coyote);letter-spacing:.1em;font-weight:500;
+  }
+
+  .m-final{
+    font-family:'Oswald',sans-serif;font-weight:600;
+    font-size:clamp(36px,4.5vw,56px);text-transform:uppercase;
+    letter-spacing:-.005em;line-height:1;
+    margin:0 0 56px;color:var(--fg);
+  }
+  .m-cta{
+    font-family:'Oswald',sans-serif;font-weight:500;
+    font-size:28px;line-height:1.2;text-transform:uppercase;letter-spacing:.005em;
+    margin:0 0 40px;color:var(--fg);
+  }
+  .m-cta em{color:var(--coyote);font-style:italic;font-weight:600}
+
+  @media (max-width: 720px){
+    .manifesto{padding:96px 24px 72px}
+    .m-vs{grid-template-columns:1fr}
+    .m-vs > div{border-right:0}
+    .m-vs > div:nth-last-child(2){border-bottom:1px solid var(--line)}
+    .m-creed li, .m-statement{font-size:22px}
+    .m-line.big{font-size:26px}
+    .m-no{gap:12px}
+    .m-no li{font-size:16px}
+    .m-want li{grid-template-columns:48px 1fr;font-size:18px}
+    .m-callout{font-size:22px}
+    .m-cta{font-size:22px}
+  }
+
+  /* ─── Spec table (technical sheet) ─── */
+  .specsheet{
+    background:var(--bg-1);
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:0;
+  }
+  .specsheet-left{padding:120px 56px;border-right:1px solid var(--line);position:relative}
+  .specsheet-right{padding:120px 56px}
+  .specsheet-left h2{margin-bottom:28px}
+  .specsheet-left p{color:var(--fg-dim);max-width:480px;font-size:15px;line-height:1.7}
+  .specsheet-left .quote{
+    margin-top:48px;padding:24px 0 0;border-top:1px solid var(--line);
+    font-family:'Oswald',sans-serif;font-size:22px;line-height:1.3;text-transform:uppercase;letter-spacing:.02em;
+    max-width:440px;color:var(--fg);
+  }
+  .specsheet-left .quote small{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--coyote);text-transform:uppercase;letter-spacing:.2em;margin-top:18px;font-weight:400}
+  .spec-row{
+    display:grid;grid-template-columns:140px 1fr;gap:24px;
+    padding:20px 0;border-bottom:1px solid var(--line);
+    align-items:baseline;
+  }
+  .spec-row:first-of-type{border-top:1px solid var(--line)}
+  .spec-row .k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--coyote);letter-spacing:.2em;text-transform:uppercase}
+  .spec-row .v{font-family:'Oswald',sans-serif;font-weight:500;font-size:18px;text-transform:uppercase;letter-spacing:.04em}
+  .spec-row .v small{display:block;font-family:'Inter',sans-serif;text-transform:none;font-weight:400;letter-spacing:0;font-size:13px;color:var(--fg-dim);margin-top:4px}
+
+  /* ─── Form / Buyer list ─── */
+  .recruit{
+    position:relative;
+    padding:140px 32px 120px;
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .recruit::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:80px 80px;
+    opacity:.35;mask-image:radial-gradient(ellipse at center, #000 30%, transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse at center, #000 30%, transparent 80%);
+  }
+  .recruit-inner{
+    max-width:1200px;margin:0 auto;position:relative;
+    display:grid;grid-template-columns:.9fr 1.1fr;gap:80px;align-items:start;
+  }
+  .recruit-copy h2{margin-bottom:24px}
+  .recruit-copy p{color:var(--fg-dim);font-size:15px;line-height:1.7;margin-bottom:32px}
+  .recruit-bullets{list-style:none;display:flex;flex-direction:column;gap:0;margin-top:32px}
+  .recruit-bullets li{
+    display:flex;gap:14px;align-items:flex-start;
+    font-size:14px;color:var(--fg);
+    padding:14px 0;border-top:1px solid var(--line);
+  }
+  .recruit-bullets li:last-child{border-bottom:1px solid var(--line)}
+  .recruit-bullets li::before{
+    content:"►";color:var(--alert);font-size:10px;margin-top:5px;
+  }
+
+  .form-shell{
+    background:var(--bg-1);
+    border:1px solid var(--line-2);
+    position:relative;
+  }
+  .form-shell::before, .form-shell::after{
+    content:"";position:absolute;width:14px;height:14px;
+    border:1.5px solid var(--coyote);
+  }
+  .form-shell::before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+  .form-shell::after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+
+  .form-head{
+    padding:24px 32px;border-bottom:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg-dim);
+    letter-spacing:.15em;text-transform:uppercase;
+  }
+  .form-head .file{color:var(--alert)}
+  .form-head .status{display:flex;align-items:center;gap:8px}
+  .form-head .status .led{width:6px;height:6px;background:var(--alert);box-shadow:0 0 6px var(--alert);border-radius:50%;animation:pulse 2s infinite}
+
+  form{padding:32px}
+  .field{margin-bottom:22px;position:relative}
+  .field label{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-dim);
+    text-transform:uppercase;letter-spacing:.2em;margin-bottom:8px;
+  }
+  .field label .req{color:var(--coyote)}
+  .field input,.field select,.field textarea{
+    width:100%;
+    background:transparent;
+    border:0;border-bottom:1px solid var(--line-2);
+    padding:10px 0;font-size:15px;
+    transition:border-color .2s;
+    outline:none;
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{
+    border-color:var(--coyote);
+  }
+  .field textarea{min-height:80px;resize:vertical;font-family:'Inter',sans-serif}
+  .field select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%238e0a08' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 6px center}
+  .field option{background:var(--bg-1);color:var(--fg)}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .grid-2 .field{margin-bottom:0}
+
+  .form-foot{
+    padding:24px 32px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    background:rgba(0,0,0,.25);
+  }
+  .form-foot .legal{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-mute);letter-spacing:.1em;text-transform:uppercase;max-width:300px;line-height:1.6}
+  .submit-btn{
+    font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.2em;
+    text-transform:uppercase;font-size:14px;
+    padding:18px 32px;background:var(--alert);color:#0a0a0a;
+    clip-path:polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+    transition:filter .2s, opacity .2s;
+    display:inline-flex;align-items:center;gap:12px;
+  }
+  .submit-btn:hover{filter:brightness(1.1)}
+  .submit-btn:disabled{opacity:.55;cursor:not-allowed}
+  .submit-btn .arrow{transition:transform .2s}
+  .submit-btn:hover .arrow{transform:translateX(4px)}
+
+  .form-success, .form-error{
+    display:none;padding:14px 16px;margin:0 32px 22px;
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;
+    border-left:3px solid var(--alert);background:rgba(142,10,8,.08);
+    color:var(--alert);
+  }
+  .form-error{border-left-color:var(--danger);background:rgba(196,74,46,.08);color:var(--danger)}
+  .form-success.show, .form-error.show{display:block}
+
+  /* ─── Footer ─── */
+  footer{
+    padding:60px 32px 32px;
+    background:#050505;
+  }
+  .foot-inner{
+    max-width:1400px;margin:0 auto;
+    display:grid;grid-template-columns:2fr 1fr;gap:48px;
+    padding-bottom:48px;border-bottom:1px solid var(--line);
+  }
+  .foot-inner h5{font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.2em;color:var(--coyote);margin-bottom:18px}
+  .foot-inner ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--fg-dim)}
+  .foot-inner ul a:hover{color:var(--fg)}
+  .foot-brand p{color:var(--fg-dim);font-size:13px;line-height:1.7;margin-top:18px;max-width:340px}
+  .foot-bottom{
+    max-width:1400px;margin:32px auto 0;
+    display:flex;justify-content:space-between;
+    font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--fg-mute);
+    letter-spacing:.15em;text-transform:uppercase;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 960px){
+    .hero{grid-template-columns:1fr}
+    .hero-right{min-height:480px}
+    .specsheet{grid-template-columns:1fr}
+    .specsheet-left,.specsheet-right{padding:80px 32px}
+    .specsheet-left{border-right:0;border-bottom:1px solid var(--line)}
+    .recruit-inner{grid-template-columns:1fr;gap:48px}
+    .arsenal-grid{grid-template-columns:repeat(6,1fr)}
+    .card.sz-6,.card.sz-4,.card.sz-8,.card.sz-3{grid-column:span 6}
+    .card.feature{grid-template-columns:1fr}
+    .card.feature .img-wrap{min-height:320px}
+    .quality-inner{grid-template-columns:repeat(2,1fr);gap:32px 0}
+    .quality .item{padding:0 16px}
+    .quality .item:nth-child(3){border-left:0}
+    .foot-inner{grid-template-columns:1fr 1fr}
+    .nav-links{display:none}
+    .grid-2{grid-template-columns:1fr}
+  }
+  @media (max-width: 560px){
+    .hero-stats{grid-template-columns:repeat(3,1fr)}
+    .hero-left{padding:56px 24px}
+    section{padding:80px 24px}
+    h2{font-size:42px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Top tactical bar -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="left">
+      <span><span class="dot"></span>RETORNO 2026 // PRÉ-LISTA ABERTA</span>
+    </div>
+    <div class="right">
+      <span>BRASIL</span>
+    </div>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="main">
+  <div class="nav-inner">
+    <div class="logo">
+      <img class="logo-img" src="assets/logo-white.png" alt="Spartan Airsoft">
+    </div>
+    <div class="nav-links">
+      <a href="#arsenal">Linha</a>
+      <a href="#contato">Contato</a>
+    </div>
+    <a class="nav-cta btn-secondary" style="padding:11px 22px;font-size:13px" href="#lista">Entrar na Lista →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="hero-left">
+    <div>
+      <div class="hero-meta mono">
+        <span><b>● VOLTANDO</b></span>
+        <span>LOTE 2026 / BRASIL</span>
+      </div>
+      <h1 class="hero-title">
+        Sua BBs<br>
+        <span class="stroke">premium</span><br>
+        <span class="accent">está de volta.</span>
+      </h1>
+      <p class="hero-sub">
+        A Spartan está de volta — agora com foco total no que sempre fizemos
+        de melhor: <b style="color:var(--fg)">BBs de altíssima qualidade.</b> Esfericidade controlada,
+        peso uniforme e zero microbolhas. Nada mais. Nada menos.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#lista">
+          Quero ser avisado
+          <span>→</span>
+        </a>
+        <a class="btn-secondary" href="#arsenal">Ver linha</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="num">±<em>0.01</em>g</div><div class="lbl">Tolerância</div></div>
+      <div class="stat"><div class="num">5.95<em>mm</em></div><div class="lbl">Diâmetro</div></div>
+      <div class="stat"><div class="num">100<em>%</em></div><div class="lbl">Polidas</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="assets/hero-operator.jpg" alt="BBs Spartan na garrafa de munição">
+    <div class="overlay-marker mono om-tl">LOTE BR-217<br>0.25g / MATCH</div>
+    <div class="overlay-marker mono om-tr">QC PASS<br>SCAN 04.26</div>
+    <div class="overlay-marker mono om-bl">ESF. 99.7%<br>POLIMERO PE</div>
+    <div class="overlay-marker mono om-br">UN. 1.000<br>FRASCO</div>
+    <div class="crosshair"></div>
+  </div>
+</section>
+
+<!-- TECHNICAL SHEET -->
+<div class="specsheet" id="arsenal">
+  <div class="specsheet-left">
+    <div class="eyebrow">Ficha Técnica</div>
+    <h2>Obsessão<br>pelo <em>detalhe.</em></h2>
+    <p>
+      Cada lote passa por inspeção óptica, pesagem por amostragem e teste
+      de disparo antes da liberação. Se um único frasco do lote falha,
+      o lote inteiro volta para a triagem.
+    </p>
+    <div class="quote">
+      "Uma BB ruim arruina o melhor fuzil do mundo."
+      <small>— Filosofia Spartan</small>
+    </div>
+  </div>
+  <div class="specsheet-right">
+    <div class="spec-row">
+      <span class="k">Material</span>
+      <span class="v">Polietileno PE Premium<small>Polímero virgem, não reciclado.</small></span>
+    </div>
+    <div class="spec-row">
+      <span class="k">Diâmetro</span>
+      <span class="v">5.95mm ± 0.01<small>Calibrado para hop-ups de precisão.</small></span>
+    </div>
+    <div class="spec-row">
+      <span class="k">Esfericidade</span>
+      <span class="v">99.7%<small>Medido em scanner óptico após o terceiro polimento.</small></span>
+    </div>
+
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto" id="manifesto">
+  <div class="manifesto-inner">
+    <div class="manifesto-eyebrow">
+      <span class="eyebrow" style="margin:0">Manifesto / 2026</span>
+      <span class="manifesto-mark">/ 01</span>
+    </div>
+
+    <h2 class="manifesto-lead">
+      O mercado se acostumou<br>
+      com o <em>suficiente.</em><br>
+      <span class="stroke-text">Nós não.</span>
+    </h2>
+
+    <div class="manifesto-body">
+      <p class="m-block">
+        Existe uma elite silenciosa no airsoft brasileiro que já entendeu:
+        <b>cada detalhe importa, cada disparo conta, cada milímetro define o jogo.</b>
+      </p>
+
+      <div class="m-pair">
+        <p class="m-line big">Eles não compram qualquer BB.</p>
+        <p class="m-line big accent">Eles escolhem.</p>
+      </div>
+
+      <ul class="m-creed">
+        <li><span>Porque sabem que</span> precisão não se negocia.</li>
+        <li><span>Consistência</span> não se improvisa.</li>
+        <li><span>Performance</span> não se finge.</li>
+      </ul>
+
+      <p class="m-statement">
+        A Spartan Airsoft não nasceu para competir.<br>
+        <b>Nasceu para separar quem joga de quem domina.</b>
+      </p>
+
+      <div class="m-vs">
+        <div>
+          <span class="m-vs-k">Enquanto muitos vendem</span>
+          <span class="m-vs-v">plástico,</span>
+        </div>
+        <div>
+          <span class="m-vs-k">nós entregamos</span>
+          <span class="m-vs-v accent">balística esportiva de alto nível.</span>
+        </div>
+        <div>
+          <span class="m-vs-k">Enquanto o mercado fala de</span>
+          <span class="m-vs-v">preço,</span>
+        </div>
+        <div>
+          <span class="m-vs-k">nós falamos do produto com</span>
+          <span class="m-vs-v accent">a melhor matéria prima do mundo.</span>
+        </div>
+      </div>
+
+      <p class="m-shift">E agora, o jogo muda.</p>
+
+      <p class="m-block">
+        Estamos abrindo um <b>grupo restrito de lojistas</b> que vão operar na
+        linha de frente dessa nova fase.
+      </p>
+
+      <ul class="m-no">
+        <li>Sem massificação.</li>
+        <li>Sem banalização.</li>
+        <li>Sem concessões.</li>
+      </ul>
+
+      <p class="m-block">
+        Apenas quem entende o peso de carregar um produto que eleva o padrão
+        do mercado trazendo o que há de mais tecnológico em balística de airsoft.
+      </p>
+
+      <p class="m-callout">
+        Se sua loja quer apenas mais um <i>"saco de bolinhas"</i>,<br>
+        este site não é o lugar certo.
+      </p>
+
+      <p class="m-but">Mas se você quer:</p>
+
+      <ul class="m-want">
+        <li><span class="num">01</span> Atrair jogadores experientes e exigentes;</li>
+        <li><span class="num">02</span> Posicionar sua loja em outro nível;</li>
+        <li><span class="num">03</span> Fazer parte de algo que está acima do comum.</li>
+      </ul>
+
+      <p class="m-final">Então você já entendeu.</p>
+
+      <p class="m-cta">
+        Cadastre seu CNPJ e participe da formação deste<br>
+        <em>grupo de elite</em> de revendedores.
+      </p>
+
+      <a class="btn-primary" href="#lista">
+        Cadastrar CNPJ <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BUYER LIST FORM -->
+<section class="recruit" id="lista">
+  <div class="recruit-inner">
+    <div class="recruit-copy">
+      <div class="eyebrow">Form. 01 / Lista de Espera</div>
+      <h2>Entre na lista<br>de <em>primeiros</em> compradores.</h2>
+      <p>Estamos voltando ao mercado em 2026 com produção limitada. Cadastre sua empresa para receber a tabela, prazos e prioridade de envio assim que o primeiro lote sair da linha.</p>
+      <ul class="recruit-bullets">
+        <li>Aviso direto por e-mail no dia da liberação do lote.</li>
+        <li>Prioridade de compra para os primeiros cadastrados.</li>
+        <li>Acesso à tabela com condição de lançamento.</li>
+        <li>Sem compromisso. Sem cobrança no cadastro.</li>
+      </ul>
+    </div>
+
+    <div class="form-shell" id="formShell">
+      <div class="form-head">
+        <span class="file">FORM-01.LISTA.JSON</span>
+        <span class="status"><span class="led"></span>SECURE / ENC</span>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        ► CADASTRO RECEBIDO. VOCÊ ESTÁ NA LISTA. AVISAREMOS POR E-MAIL.
+      </div>
+      <div class="form-error" id="formError">
+        ► FALHA NO ENVIO. TENTE NOVAMENTE OU ESCREVA PARA CONTATO@SPARTANAIRSOFT.COM.BR
+      </div>
+
+      <form id="leadForm" novalidate>
+        <div class="grid-2">
+          <div class="field">
+            <label>Nome Completo <span class="req">// REQ</span></label>
+            <input type="text" name="nome" required autocomplete="name" placeholder="João Silva">
+          </div>
+          <div class="field">
+            <label>Empresa / Razão Social <span class="req">// REQ</span></label>
+            <input type="text" name="empresa" required autocomplete="organization" placeholder="Loja Tática LTDA">
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label>CNPJ <span class="req">// REQ</span></label>
+            <input type="text" name="cnpj" required inputmode="numeric" maxlength="18" placeholder="00.000.000/0000-00" id="cnpj">
+          </div>
+          <div class="field">
+            <label>Telefone <span class="req">// REQ</span></label>
+            <input type="tel" name="telefone" required autocomplete="tel" placeholder="(11) 90000-0000" id="tel">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>E-mail <span class="req">// REQ</span></label>
+          <input type="email" name="email" required autocomplete="email" placeholder="contato@empresa.com.br">
+        </div>
+
+        <div class="field">
+          <label>Volume Estimado / Mês <span style="color:var(--fg-mute)">// OPT</span></label>
+          <select name="volume">
+            <option value="">— Selecione —</option>
+            <option>Até 10 frascos</option>
+            <option>10 – 50 frascos</option>
+            <option>50 – 200 frascos</option>
+            <option>200+ frascos / Galões</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Mensagem <span style="color:var(--fg-mute)">// OPT</span></label>
+          <textarea name="mensagem" placeholder="Algo que devemos saber sobre você ou sua loja..."></textarea>
+        </div>
+      </form>
+
+      <div class="form-foot">
+        <p class="legal">Ao enviar, você concorda com o tratamento dos dados conforme a LGPD.</p>
+        <button class="submit-btn" type="submit" form="leadForm" id="submitBtn">
+          Entrar na Lista <span class="arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contato">
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <div class="logo">
+        <img class="logo-img" src="assets/logo-white.png" alt="Spartan Airsoft">
+      </div>
+      <p>Munição de airsoft de alta performance. Voltamos ao mercado em 2026 com foco único: BBs de qualidade extrema.</p>
+    </div>
+    <div>
+      <h5>Contato</h5>
+      <ul>
+        <li>contato@spartanairsoft.com.br</li>
+        <li>
+</li>
+        <li>
+</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 SPARTAN AIRSOFT</span>
+    <span>BUILD 2026.04.26</span>
+  </div>
+</footer>
+
+<script>
+  // ╔══════════════════════════════════════════════════════════╗
+  // ║  GOOGLE SHEETS ENDPOINT                                 ║
+  // ║  Paste your Apps Script Web App URL between the quotes. ║
+  // ║  See README.md for setup instructions.                  ║
+  // ╚══════════════════════════════════════════════════════════╝
+  const SHEETS_ENDPOINT = ""; // <-- paste Apps Script URL here
+
+  // CNPJ mask
+  const cnpjEl = document.getElementById('cnpj');
+  cnpjEl.addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 14);
+    v = v.replace(/^(\d{2})(\d)/, '$1.$2');
+    v = v.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    v = v.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    v = v.replace(/(\d{4})(\d)/, '$1-$2');
+    e.target.value = v;
+  });
+
+  // Telephone mask
+  const telEl = document.getElementById('tel');
+  telEl.addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 10) v = v.replace(/(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+    else if (v.length > 6) v = v.replace(/(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+    else if (v.length > 2) v = v.replace(/(\d{2})(\d{0,5}).*/, '($1) $2');
+    else v = v.replace(/(\d*)/, '($1');
+    e.target.value = v;
+  });
+
+  function validCNPJ(raw){
+    const d = raw.replace(/\D/g,'');
+    return d.length === 14 && !/^(\d)\1+$/.test(d);
+  }
+
+  const form = document.getElementById('leadForm');
+  const successEl = document.getElementById('formSuccess');
+  const errorEl   = document.getElementById('formError');
+  const submitBtn = document.getElementById('submitBtn');
+
+  submitBtn.addEventListener('click', () => form.requestSubmit());
+
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    successEl.classList.remove('show');
+    errorEl.classList.remove('show');
+
+    const data = Object.fromEntries(new FormData(form).entries());
+
+    if (!data.nome || !data.empresa || !data.email || !data.telefone) {
+      errorEl.textContent = '► PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS.';
+      errorEl.classList.add('show');
+      return;
+    }
+    if (!validCNPJ(data.cnpj)) {
+      errorEl.textContent = '► CNPJ INVÁLIDO. CONFIRA OS 14 DÍGITOS.';
+      errorEl.classList.add('show');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    const originalLabel = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Transmitindo... <span class="arrow">⟳</span>';
+
+    try {
+      if (SHEETS_ENDPOINT) {
+        await fetch(SHEETS_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(data)
+        });
+      } else {
+        const stash = JSON.parse(localStorage.getItem('spartan_leads') || '[]');
+        stash.push({ ...data, ts: new Date().toISOString() });
+        localStorage.setItem('spartan_leads', JSON.stringify(stash));
+        console.info('[Spartan] Lead saved to localStorage. Configure SHEETS_ENDPOINT in index.html to send to Google Sheets.', data);
+      }
+
+      successEl.classList.add('show');
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = '► FALHA NA TRANSMISSÃO. TENTE NOVAMENTE.';
+      errorEl.classList.add('show');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalLabel;
+    }
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      const t = document.getElementById(id);
+      if (t) {
+        e.preventDefault();
+        window.scrollTo({ top: t.offsetTop - 60, behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
