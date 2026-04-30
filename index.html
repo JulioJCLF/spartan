@@ -169,6 +169,58 @@
     font-size:10px;color:var(--alert);letter-spacing:.1em;
     z-index:2;
     text-shadow:0 1px 4px rgba(0,0,0,.9);
+    opacity:0;
+  }
+  .overlay-marker.om-on{opacity:1;transition:opacity .2s ease-out}
+  .om-key, .om-val{display:inline}
+  .om-key{margin-right:6px}
+  .om-val.om-scrambling{color:#fff;text-shadow:0 0 8px var(--alert)}
+  /* Small red labels glow briefly while scrambling */
+  .om-scrambling-label{
+    color:#fff !important;
+    text-shadow:0 0 6px var(--coyote);
+    transition:color .25s, text-shadow .25s;
+  }
+  /* Glitch effect for periodic micro-corruption */
+  .om-glitching{
+    position:relative;
+    animation: omShake .12s linear 0s 5;
+  }
+  .om-glitching::before,
+  .om-glitching::after{
+    content: attr(data-final);
+    position:absolute;top:0;left:0;width:100%;height:100%;
+    pointer-events:none;
+    background:transparent;
+  }
+  .om-glitching::before{
+    color:#ff3636;
+    transform:translate(1.5px, 0);
+    mix-blend-mode:screen;
+    clip-path:polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    animation: omGlitchA .15s steps(2,end) infinite;
+  }
+  .om-glitching::after{
+    color:#36c5ff;
+    transform:translate(-1.5px, 0);
+    mix-blend-mode:screen;
+    clip-path:polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+    animation: omGlitchB .15s steps(2,end) infinite;
+  }
+  @keyframes omShake{
+    0%,100%{ transform: translate(0,0) }
+    20%   { transform: translate(-1px, 1px) }
+    40%   { transform: translate(1px, -1px) }
+    60%   { transform: translate(-1px, 0) }
+    80%   { transform: translate(1px, 1px) }
+  }
+  @keyframes omGlitchA{
+    0%,100%{ transform: translate(1.5px, 0) }
+    50%   { transform: translate(2.5px, -1px) }
+  }
+  @keyframes omGlitchB{
+    0%,100%{ transform: translate(-1.5px, 0) }
+    50%   { transform: translate(-2.5px, 1px) }
   }
   .om-tl{top:32px;left:32px}
   .om-tr{top:32px;right:32px;text-align:right}
@@ -178,19 +230,42 @@
     content:"";display:block;width:18px;height:18px;
     border:1px solid var(--alert);
     margin-bottom:6px;
+    /* boot: starts collapsed */
+    transform:scale(0);
+    transform-origin:center;
+    transition:transform .25s cubic-bezier(.4,0,.2,1);
   }
   .om-tr::before, .om-br::before{margin-left:auto}
+  .overlay-marker.om-on::before{transform:scale(1)}
+  .overlay-marker.om-blink::before{
+    animation: omBlink .12s steps(2,end) 3;
+  }
+  @keyframes omBlink{
+    0%,100%{background:transparent}
+    50%{background:var(--alert)}
+  }
 
   .crosshair{
     position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
     width:120px;height:120px;z-index:2;pointer-events:none;
-    opacity:.5;
+    opacity:0;
+    transition:opacity .3s;
   }
+  .crosshair.om-on{opacity:.5}
   .crosshair::before, .crosshair::after{
     content:"";position:absolute;background:var(--alert);
+    transform-origin:center;
   }
-  .crosshair::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-.5px)}
-  .crosshair::after{top:50%;left:0;right:0;height:1px;transform:translateY(-.5px)}
+  .crosshair::before{
+    left:50%;top:0;bottom:0;width:1px;transform:translateX(-.5px) scaleY(0);
+    transition:transform .35s cubic-bezier(.4,0,.2,1);
+  }
+  .crosshair::after{
+    top:50%;left:0;right:0;height:1px;transform:translateY(-.5px) scaleX(0);
+    transition:transform .35s cubic-bezier(.4,0,.2,1) .12s;
+  }
+  .crosshair.om-on::before{transform:translateX(-.5px) scaleY(1)}
+  .crosshair.om-on::after{transform:translateY(-.5px) scaleX(1)}
 
   /* ─── Section primitives ─── */
   section{padding:120px 32px;border-bottom:1px solid var(--line)}
@@ -989,10 +1064,10 @@
   </div>
   <div class="hero-right">
     <img src="assets/hero-operator.jpg" alt="BBs Spartan na garrafa de munição">
-    <div class="overlay-marker mono om-tl">LOTE BR-217<br>0.25g / MATCH</div>
-    <div class="overlay-marker mono om-tr">MADE IN<br>TAIWAN</div>
-    <div class="overlay-marker mono om-bl">POLIMERO PE<br>VIRGEM</div>
-    <div class="overlay-marker mono om-br">UN. 1.000<br>FRASCO</div>
+    <div class="overlay-marker mono om-tl"><span class="om-key">LOTE</span><span class="om-val" data-final="BR-217">BR-217</span><br><span class="om-val" data-final="0.25g / MATCH">0.25g / MATCH</span></div>
+    <div class="overlay-marker mono om-tr"><span class="om-key">MADE IN</span><br><span class="om-val" data-final="TAIWAN">TAIWAN</span></div>
+    <div class="overlay-marker mono om-bl"><span class="om-key">POLIMERO</span><span class="om-val" data-final="PE">PE</span><br><span class="om-val" data-final="VIRGEM">VIRGEM</span></div>
+    <div class="overlay-marker mono om-br"><span class="om-key">UN.</span><span class="om-val" data-final="1.000">1.000</span><br><span class="om-val" data-final="FRASCO">FRASCO</span></div>
     <div class="crosshair"></div>
   </div>
 </section>
@@ -1028,7 +1103,7 @@
 
       <article class="ts-card">
         <div class="ts-label">Diâmetro calibrado</div>
-        <h3 class="ts-head">Encaixa<br>perfeito.</h3>
+        <h3 class="ts-head">Encaixe<br>perfeito.</h3>
         <p class="ts-copy">Calibragem precisa para hop-ups de competição. Sem folga, sem perda de pressão, sem início de jogo desperdiçado.</p>
       </article>
     </div>
@@ -1394,6 +1469,169 @@
       }
     });
   });
+</script>
+
+<script>
+  // ─── HUD boot sequence on hero markers + crosshair ───
+  (function(){
+    const SCRAMBLE_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%/<>".split("");
+
+    function scramble(el, finalText, duration){
+      const total = duration || 600;
+      const start = performance.now();
+      const len = finalText.length;
+      el.classList.add("om-scrambling");
+      function tick(now){
+        const t = Math.min(1, (now - start) / total);
+        const reveal = Math.floor(t * len);
+        let out = "";
+        for (let i = 0; i < len; i++){
+          const ch = finalText[i];
+          if (i < reveal || ch === " " || ch === "/" || ch === "." || ch === "—" || ch === "·" || ch === "-"){
+            out += ch;
+          } else {
+            out += SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+          }
+        }
+        el.textContent = out;
+        if (t < 1) requestAnimationFrame(tick);
+        else {
+          el.textContent = finalText;
+          el.classList.remove("om-scrambling");
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // Expose for re-use below
+    window.__spartanScramble = scramble;
+
+    // ─── Hero markers + crosshair ───
+    const markers = Array.from(document.querySelectorAll(".overlay-marker"));
+    const crosshair = document.querySelector(".crosshair");
+    const order = ["om-tl","om-tr","om-bl","om-br"]
+      .map(c => markers.find(m => m.classList.contains(c)))
+      .filter(Boolean);
+
+    function bootMarker(marker, delay){
+      setTimeout(() => {
+        marker.classList.add("om-on","om-blink");
+        const vals = marker.querySelectorAll(".om-val");
+        vals.forEach((v, i) => {
+          const finalText = v.dataset.final || v.textContent;
+          v.textContent = "";
+          setTimeout(() => scramble(v, finalText, 500 + i*120), 200 + i*80);
+        });
+      }, delay);
+    }
+
+    function runHeroBoot(){
+      if (crosshair) setTimeout(() => crosshair.classList.add("om-on"), 80);
+      order.forEach((m, i) => bootMarker(m, 350 + i*220));
+    }
+
+    const heroRight = document.querySelector(".hero-right");
+    if (heroRight && order.length){
+      let played = false;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting && !played){
+            played = true;
+            runHeroBoot();
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      io.observe(heroRight);
+    }
+
+    // ─── Generic scramble on small red labels ───
+    // Selectors: all small uppercase mono red text on the page
+    const smallRedSelectors = [
+      ".eyebrow",
+      ".ts-label",
+      ".ts-spec-k",
+      ".sealed-k",
+      ".manifesto-mark",
+      ".form-head .file",
+      ".form-head .stat",
+      ".foot-eyebrow",
+    ];
+    const targets = Array.from(document.querySelectorAll(smallRedSelectors.join(",")))
+      .filter(el => !el.closest(".hero-right")); // hero already animated
+
+    targets.forEach(el => {
+      // Cache final text
+      const finalText = el.textContent.trim();
+      el.dataset.final = finalText;
+      el.style.minWidth = el.offsetWidth + "px"; // prevent reflow
+
+      // Hide initially
+      el.style.opacity = "0";
+      el.style.transition = "opacity .15s";
+    });
+
+    const labelIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        if (el.dataset.scrambled) return;
+        el.dataset.scrambled = "1";
+        // Stagger if multiple in same parent
+        const siblings = Array.from(el.parentElement?.children || []).filter(s => s.dataset.scrambled === "1");
+        const stagger = (siblings.length - 1) * 80;
+        setTimeout(() => {
+          el.style.opacity = "1";
+          el.classList.add("om-scrambling-label");
+          scramble(el, el.dataset.final, 480);
+          // Remove glow class after settle
+          setTimeout(() => el.classList.remove("om-scrambling-label"), 520);
+        }, stagger);
+        labelIO.unobserve(el);
+      });
+    }, { threshold: 0.6, rootMargin: "0px 0px -10% 0px" });
+
+    targets.forEach(t => labelIO.observe(t));
+
+    // ─── Periodic glitch every 30s on already-revealed labels ───
+    function glitchAll(){
+      const live = targets.filter(t => t.dataset.scrambled === "1" && t.dataset.final);
+      if (!live.length) return;
+      // Pick a random subset (50–80%) so it doesn't all flash at once
+      const shuffled = live.slice().sort(() => Math.random() - 0.5);
+      const pick = shuffled.slice(0, Math.ceil(live.length * (0.5 + Math.random()*0.3)));
+      pick.forEach((el, i) => {
+        const delay = Math.random() * 400;
+        setTimeout(() => {
+          el.classList.add("om-glitching");
+          // Brief char scramble during glitch
+          const finalText = el.dataset.final;
+          let glitchTicks = 0;
+          const maxTicks = 6;
+          const tick = setInterval(() => {
+            glitchTicks++;
+            if (glitchTicks >= maxTicks){
+              clearInterval(tick);
+              el.textContent = finalText;
+              el.classList.remove("om-glitching");
+              return;
+            }
+            // Replace 1-2 random chars with scramble
+            const arr = finalText.split("");
+            const swaps = 1 + Math.floor(Math.random()*2);
+            for (let s=0; s<swaps; s++){
+              const idx = Math.floor(Math.random() * arr.length);
+              if (arr[idx] && arr[idx] !== " " && /[A-Z0-9]/i.test(arr[idx])){
+                arr[idx] = SCRAMBLE_CHARS[Math.floor(Math.random()*SCRAMBLE_CHARS.length)];
+              }
+            }
+            el.textContent = arr.join("");
+          }, 60);
+        }, delay);
+      });
+    }
+    setInterval(glitchAll, 30000);
+  })();
 </script>
 </body>
 </html>
