@@ -552,6 +552,33 @@
     .techstats-foot{margin-top:56px}
   }
 
+  /* ─── Section icons ─── */
+  .section-icon{
+    display:block;
+    width:64px;height:64px;
+    margin:0 auto 24px;
+    opacity:.92;
+    filter: drop-shadow(0 0 12px rgba(142,10,8,.25));
+  }
+  /* Manifesto: left-aligned section, so don't center the icon */
+  .manifesto-inner > .section-icon{
+    margin:0 0 28px;
+    width:56px;height:56px;
+  }
+  .sealed-icon{
+    display:block;
+    width:36px;height:36px;
+    margin-bottom:6px;
+    opacity:.88;
+  }
+  .sealed-flag{
+    display:block;
+    width:42px;height:auto;
+    margin-bottom:6px;
+    border:1px solid var(--line);
+    box-shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+
   /* ─── Sealed factory ─── */
   .sealed{
     position:relative;
@@ -560,8 +587,15 @@
     border-bottom:1px solid var(--line);
     overflow:hidden;
   }
+  .sealed::after{
+    content:"";position:absolute;inset:0;z-index:0;
+    background:
+      linear-gradient(180deg, rgba(10,10,10,.92) 0%, rgba(10,10,10,.78) 50%, rgba(10,10,10,.95) 100%),
+      url("assets/sealed-bg.png") center/cover no-repeat;
+    pointer-events:none;
+  }
   .sealed::before{
-    content:"";position:absolute;inset:0;
+    content:"";position:absolute;inset:0;z-index:1;
     background-image:
       repeating-linear-gradient(
         45deg,
@@ -573,7 +607,7 @@
     pointer-events:none;
   }
   .sealed-inner{
-    position:relative;z-index:1;
+    position:relative;z-index:2;
     max-width:820px;margin:0 auto;
     text-align:center;
   }
@@ -1076,6 +1110,7 @@
 <section class="techstats" id="arsenal">
   <div class="techstats-inner">
     <div class="techstats-head">
+      <img class="section-icon" src="assets/icon-podium.png" alt="" aria-hidden="true">
       <div class="eyebrow">Obsessão pelo detalhe</div>
       <h2>O detalhe que<br>você <em>sente</em> no jogo.</h2>
       <p>
@@ -1144,14 +1179,17 @@
     </p>
     <div class="sealed-row">
       <div class="sealed-cell">
+        <img class="sealed-flag" src="assets/flag-taiwan.jpg" alt="Bandeira de Taiwan" style="width: 45px; margin: 0px 0px 6px; object-fit: fill">
         <span class="sealed-k">Origem</span>
         <span class="sealed-v">Taiwan</span>
       </div>
       <div class="sealed-cell">
+        <img class="sealed-icon" src="assets/icon-fabrica.png" alt="" aria-hidden="true">
         <span class="sealed-k">Envase</span>
         <span class="sealed-v">Direto da fábrica</span>
       </div>
       <div class="sealed-cell">
+        <img class="sealed-icon" src="assets/icon-lote.png" alt="" aria-hidden="true">
         <span class="sealed-k">Rastreio</span>
         <span class="sealed-v">Por lote</span>
       </div>
@@ -1310,6 +1348,26 @@
           </div>
         </div>
 
+        <div class="grid-2">
+          <div class="field">
+            <label>Estado <span class="req">// REQ</span></label>
+            <select name="estado" required id="estado">
+              <option value="">— UF —</option>
+              <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
+              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+              <option>GO</option><option>MA</option><option>MT</option><option>MS</option>
+              <option>MG</option><option>PA</option><option>PB</option><option>PR</option>
+              <option>PE</option><option>PI</option><option>RJ</option><option>RN</option>
+              <option>RS</option><option>RO</option><option>RR</option><option>SC</option>
+              <option>SP</option><option>SE</option><option>TO</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Cidade <span class="req">// REQ</span></label>
+            <input type="text" name="cidade" required autocomplete="address-level2" placeholder="São Paulo">
+          </div>
+        </div>
+
         <div class="field">
           <label>E-mail <span class="req">// REQ</span></label>
           <input type="email" name="email" required autocomplete="email" placeholder="contato@empresa.com.br">
@@ -1419,6 +1477,11 @@
 
     if (!data.nome || !data.empresa || !data.email || !data.telefone) {
       errorEl.textContent = '► PREENCHA TODOS OS CAMPOS OBRIGATÓRIOS.';
+      errorEl.classList.add('show');
+      return;
+    }
+    if (!data.estado || !data.cidade) {
+      errorEl.textContent = '► INFORME ESTADO E CIDADE.';
       errorEl.classList.add('show');
       return;
     }
