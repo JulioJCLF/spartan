@@ -981,14 +981,15 @@
   .submit-btn .arrow{transition:transform .2s}
   .submit-btn:hover .arrow{transform:translateX(4px)}
 
-  .form-success, .form-error{
+  .form-success, .form-error, .form-disabled{
     display:none;padding:14px 16px;margin:0 32px 22px;
     font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.05em;
     border-left:3px solid var(--alert);background:rgba(142,10,8,.08);
     color:var(--alert);
   }
   .form-error{border-left-color:var(--danger);background:rgba(196,74,46,.08);color:var(--danger)}
-  .form-success.show, .form-error.show{display:block}
+  .form-disabled{border-left-color:var(--fg-mute);background:rgba(90,86,79,.08);color:var(--fg-mute)}
+  .form-success.show, .form-error.show, .form-disabled{display:block}
 
   /* ─── Footer ─── */
   footer{
@@ -1326,33 +1327,37 @@
         ► FALHA NO ENVIO. TENTE NOVAMENTE OU ESCREVA PARA CONTATO@SPARTANAIRSOFT.COM.BR
       </div>
 
+      <div class="form-disabled">
+        Cadastro Desabilitado
+      </div>
+
       <form id="leadForm" novalidate>
         <div class="grid-2">
           <div class="field">
             <label>Nome Completo <span class="req">// REQ</span></label>
-            <input type="text" name="nome" required autocomplete="name" placeholder="João Silva">
+            <input type="text" name="nome" required autocomplete="name" placeholder="João Silva" disabled>
           </div>
           <div class="field">
             <label>Empresa / Razão Social <span class="req">// REQ</span></label>
-            <input type="text" name="empresa" required autocomplete="organization" placeholder="Loja Tática LTDA">
+            <input type="text" name="empresa" required autocomplete="organization" placeholder="Loja Tática LTDA" disabled>
           </div>
         </div>
 
         <div class="grid-2">
           <div class="field">
             <label>CNPJ <span class="req">// REQ</span></label>
-            <input type="text" name="cnpj" required inputmode="numeric" maxlength="18" placeholder="00.000.000/0000-00" id="cnpj">
+            <input type="text" name="cnpj" required inputmode="numeric" maxlength="18" placeholder="00.000.000/0000-00" id="cnpj" disabled>
           </div>
           <div class="field">
             <label>Telefone <span class="req">// REQ</span></label>
-            <input type="tel" name="telefone" required autocomplete="tel" placeholder="(11) 90000-0000" id="tel">
+            <input type="tel" name="telefone" required autocomplete="tel" placeholder="(11) 90000-0000" id="tel" disabled>
           </div>
         </div>
 
         <div class="grid-2">
           <div class="field">
             <label>Estado <span class="req">// REQ</span></label>
-            <select name="estado" required id="estado">
+            <select name="estado" required id="estado" disabled>
               <option value="">— UF —</option>
               <option>AC</option><option>AL</option><option>AP</option><option>AM</option>
               <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
@@ -1365,18 +1370,18 @@
           </div>
           <div class="field">
             <label>Cidade <span class="req">// REQ</span></label>
-            <input type="text" name="cidade" required autocomplete="address-level2" placeholder="São Paulo">
+            <input type="text" name="cidade" required autocomplete="address-level2" placeholder="São Paulo" disabled>
           </div>
         </div>
 
         <div class="field">
           <label>E-mail <span class="req">// REQ</span></label>
-          <input type="email" name="email" required autocomplete="email" placeholder="contato@empresa.com.br">
+          <input type="email" name="email" required autocomplete="email" placeholder="contato@empresa.com.br" disabled>
         </div>
 
         <div class="field">
           <label>Volume Estimado / Mês <span style="color:var(--fg-mute)">// OPT</span></label>
-          <select name="volume">
+          <select name="volume" disabled>
             <option value="">— Selecione —</option>
             <option>Até 10 frascos</option>
             <option>10 – 50 frascos</option>
@@ -1387,13 +1392,13 @@
 
         <div class="field">
           <label>Mensagem <span style="color:var(--fg-mute)">// OPT</span></label>
-          <textarea name="mensagem" placeholder="Algo que devemos saber sobre você ou sua loja..."></textarea>
+          <textarea name="mensagem" placeholder="Algo que devemos saber sobre você ou sua loja..." disabled></textarea>
         </div>
       </form>
 
       <div class="form-foot">
         <p class="legal">Ao enviar, você concorda com o tratamento dos dados conforme a LGPD.</p>
-        <button class="submit-btn" type="submit" form="leadForm" id="submitBtn">
+        <button class="submit-btn" type="submit" form="leadForm" id="submitBtn" disabled>
           Entrar na Lista <span class="arrow">→</span>
         </button>
       </div>
